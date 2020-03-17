@@ -34,6 +34,46 @@ namespace OdeToFoodCoreData
                    select r;
                 
         }
+
+
+        public Restaurant GetById(int id) 
+        {
+
+            return _restaurants.SingleOrDefault(r => r.Id == id);
+
+        }
+
+        public Restaurant Update(Restaurant inUpdatedRestaurant)         
+        {
+            // located the right one to update
+            var _r = _restaurants.SingleOrDefault(r => r.Id == inUpdatedRestaurant.Id);
+
+            // mapping
+            if (_r != null)
+            {
+                _r.Name = inUpdatedRestaurant.Name;
+                _r.Location = inUpdatedRestaurant.Location;
+                _r.Cuisine = inUpdatedRestaurant.Cuisine;                
+            }
+
+            return _r;
+        }
+
+        public int Commit()
+        {
+            return 0;
+        }
+
+        public Restaurant Add(Restaurant addRestaurant)
+        {
+
+           
+            addRestaurant.Id = _restaurants.Max(r => r.Id + 1);
+            _restaurants.Add(addRestaurant);
+            return addRestaurant;
+
+        }
+
     }
 
 

@@ -15,6 +15,16 @@ namespace OdeToFoodCoreData
 
 
         IEnumerable<Restaurant> GetRestaurantsByName(string inName);
+
+
+        Restaurant GetById(int id);
+
+
+        Restaurant Update(Restaurant updatedRestaurant);
+        int Commit();
+
+        Restaurant Add(Restaurant addRestaurant);
+        
     }
 
 

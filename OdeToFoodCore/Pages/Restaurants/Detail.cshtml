@@ -1,10 +1,17 @@
-﻿@page "/{restaurantId:int}"
+﻿@page "{restaurantId:int}"
 @model OdeToFoodCore.DetailModel
 @{
     ViewData["Title"] = "Detail";
 }
 
 <h2>@Model.Restaurant.Name</h2>
+
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
 <div>
     Id: @Model.Restaurant.Id
 </div>
@@ -15,4 +22,7 @@
     Cuisine: @Model.Restaurant.Cuisine
 </div>
 
+
 <a asp-page="./List" class="btn btn-default">Back to List of Restaurants</a>
+
+
