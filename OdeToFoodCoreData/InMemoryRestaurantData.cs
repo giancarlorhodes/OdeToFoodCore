@@ -74,6 +74,15 @@ namespace OdeToFoodCoreData
 
         }
 
+        public Restaurant Delete(int deleteRestaurantId)
+        {
+            var _r = _restaurants.FirstOrDefault(r => r.Id == deleteRestaurantId);
+            if (_r != null)
+            {
+                _restaurants.Remove(_r);
+            }
+            return _r;
+        }
     }
 
 

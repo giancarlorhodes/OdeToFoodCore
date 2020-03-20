@@ -8,6 +8,12 @@ namespace OdeToFoodCoreData
 {
     public class OdeToFoodDbContext : DbContext
     {
+
+        public OdeToFoodDbContext(DbContextOptions<OdeToFoodDbContext> options) : base(options)
+        {
+            // pass it back to the base 
+        }
+
         public DbSet<Restaurant> Restaurants { get; set; }
 
     }

@@ -24,7 +24,9 @@ namespace OdeToFoodCoreData
         int Commit();
 
         Restaurant Add(Restaurant addRestaurant);
-        
+
+        Restaurant Delete(int deleteRestaurantId);
+
     }
 
 
