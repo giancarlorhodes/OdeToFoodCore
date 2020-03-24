@@ -9,39 +9,41 @@ using OdeToFoodCoreData;
 
 namespace OdeToFoodCore.Pages.Restaurants
 {
-    public class DetailModel : PageModel
+    public class DeleteModel : PageModel
     {
 
         private readonly IRestaurantData _restaurantData;
 
-
-        [TempData]
-        public string Message { get; set; }
         public Restaurant Restaurant { get; set; }
 
-
-        public DetailModel(IRestaurantData inRestaurantData)
+        public DeleteModel(IRestaurantData inRestaurantData)
         {
-            this._restaurantData = inRestaurantData;       
+            this._restaurantData = inRestaurantData; 
         }
-
 
         public IActionResult OnGet(int restaurantId)
         {
-
-            // OLD
-            //Restaurant = new Restaurant();
-            //Restaurant.Id = restaurantId;
-
             Restaurant = _restaurantData.GetById(restaurantId);
-            if (Restaurant == null)
+            if (Restaurant == null) 
             {
                 return RedirectToPage("./NotFound");
             }
-            else
+            return Page();
+        }
+
+
+        public IActionResult OnPost(int restaurantId)
+        {
+            var _restaurant = _restaurantData.Delete(restaurantId);
+            _restaurantData.Commit();
+
+            if (_restaurant == null) 
             {
-                return Page();
+                return RedirectToPage("./NotFound");
             }
+
+            TempData["Message"] = $"{_restaurant.Name} deleted";
+            return RedirectToPage("./List");
         }
     }
 }

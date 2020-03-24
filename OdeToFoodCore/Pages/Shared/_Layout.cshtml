@@ -42,9 +42,11 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
-        @RenderBody()
+        @RenderBody()  <!-- page will injected here -->
         <hr />
         <footer>
+            <vc:restaurant-count></vc:restaurant-count>  <!-- view component example,  default.cshml, RestaurantCountViewComponent.cs, and usage right here. FOLDER STRUCTURE MATTERS !!!! -->
+            @RenderSection("footer", required: false)
             <p>&copy; 2020 - OdeToFoodCore</p>
         </footer>
     </div>

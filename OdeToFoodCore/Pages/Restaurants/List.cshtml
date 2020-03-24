@@ -1,7 +1,7 @@
 ﻿@page
-@model OdeToFoodCore.ListModel
+@model OdeToFoodCore.Pages.Restaurants.ListModel
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "List of Restaurants";
 }
 
 <h1>Restaurants</h1>
@@ -22,7 +22,7 @@
 
 </form>
 
-<table class="table">
+@*<table class="table">
 
     @foreach (var r in Model.Restaurants)
     {       
@@ -37,18 +37,23 @@
                 <a class="btn btn-lg" asp-page="./Edit" asp-route-restaurantId="@r.Id">
                     <i class="glyphicon glyphicon-edit"></i>
                 </a>
+                <a class="btn btn-lg" asp-page="./Delete" asp-route-restaurantId="@r.Id">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
             </td>
         </tr>   
     }
 
-</table>
+</table>*@
+
+
+@foreach (var _restaurant in Model.Restaurants)
+{
+    <partial name="_Summary" model="_restaurant" />
+}
 
 <a asp-page=".\Edit" class="btn btn-primary">Add New</a>
 
-<div>
-
-
-    @Model.Message
-
-</div>
-
+@section footer{ 
+<div>@Model.Message</div>
+}

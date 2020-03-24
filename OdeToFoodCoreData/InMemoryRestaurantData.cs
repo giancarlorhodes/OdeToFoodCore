@@ -83,6 +83,11 @@ namespace OdeToFoodCoreData
             }
             return _r;
         }
+
+        public int GetCountOfRestaurants()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 

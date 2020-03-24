@@ -27,6 +27,9 @@ namespace OdeToFoodCoreData
 
         Restaurant Delete(int deleteRestaurantId);
 
+
+        int GetCountOfRestaurants();
+
     }
 
 

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using OdeToFoodCoreCommon;
 using OdeToFoodCoreData;
 
-namespace OdeToFoodCore
+namespace OdeToFoodCore.Pages.Restaurants
 {
     public class EditModel : PageModel
     {
