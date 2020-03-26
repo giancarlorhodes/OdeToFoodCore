@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using OdeToFoodCoreCommon;
 using OdeToFoodCoreData;
 
@@ -16,7 +17,7 @@ namespace OdeToFoodCore.Pages.Restaurants
         
         private readonly IConfiguration _config;
         private readonly IRestaurantData _restaurantData;
-
+        private readonly ILogger _logger;
 
 
         // outputs models
@@ -26,11 +27,11 @@ namespace OdeToFoodCore.Pages.Restaurants
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get;set; }
 
-        public ListModel(IConfiguration inConfig, IRestaurantData inRestaurantData)
+        public ListModel(IConfiguration inConfig, IRestaurantData inRestaurantData, ILogger<ListModel> logger)
         {
-
-           _config = inConfig;
-           _restaurantData = inRestaurantData;
+            _config = inConfig;
+            _restaurantData = inRestaurantData;
+            _logger = logger;
         }
 
 
@@ -38,6 +39,7 @@ namespace OdeToFoodCore.Pages.Restaurants
         // input name must be a exact match to the method parameter name
         public void OnGet()
         {
+
             // Message = "Hello, World!";
             Message = _config["Message"];
             //Restaurants = _restaurantData.GetAll(); // OLD

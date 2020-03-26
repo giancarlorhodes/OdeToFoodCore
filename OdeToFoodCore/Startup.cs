@@ -62,6 +62,8 @@ namespace OdeToFoodCore
                 app.UseHsts();
             }
 
+            app.Use(SayHelloMiddleWare);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles(); // serves files from the wwwroot location
             // app.UseNodeModules(env); // serve files from the node_modules location
@@ -74,6 +76,21 @@ namespace OdeToFoodCore
             });
             app.UseCookiePolicy();
             app.UseMvc(); // router middleware - going to controller code, programmer code
+        }
+
+        private RequestDelegate SayHelloMiddleWare(RequestDelegate next)
+        {
+            return async _context =>
+            {
+                if (_context.Request.Path.StartsWithSegments("/hello"))
+                {
+                    await _context.Response.WriteAsync("Hello World!!!");
+                }
+                else 
+                {
+                    await next(_context);
+                }
+            };
         }
     }
 }
