@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using OdeToFoodCoreData;
 
 namespace OdeToFoodCore
@@ -47,6 +49,7 @@ namespace OdeToFoodCore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // this is the middleware pipeline - Scott Allen's corn processing example - FIFO
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -60,10 +63,17 @@ namespace OdeToFoodCore
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseStaticFiles(); // serves files from the wwwroot location
+            // app.UseNodeModules(env); // serve files from the node_modules location
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, @"node_modules")),
+                RequestPath = new PathString("/node_modules"),
+                ServeUnknownFileTypes = true
 
-            app.UseMvc();
+            });
+            app.UseCookiePolicy();
+            app.UseMvc(); // router middleware - going to controller code, programmer code
         }
     }
 }
